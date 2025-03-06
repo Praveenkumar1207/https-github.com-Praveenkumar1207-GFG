@@ -49,26 +49,23 @@ class Solution {
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         // code here
         Queue<Integer> q = new LinkedList<>();
-        ArrayList<Integer> ans = new ArrayList<>();
-        
-        boolean[] flag = new boolean[V];
-        Arrays.fill(flag,false);
+        boolean[] vis = new boolean[V];
+        // Arrays.fill(vis,false);
         q.add(0);
-        flag[0] = true;
+        vis[0] = true;
+        ArrayList<Integer> res = new ArrayList<>();
         
         while(!q.isEmpty()){
-            int dum = q.poll();
-            ans.add(dum);
+            int ele = q.poll();
+            res.add(ele);
             
-            ArrayList<Integer> dummy = adj.get(dum);
-            for(int i = 0; i < dummy.size(); i++){
-                if(flag[dummy.get(i)] == false){
-                    q.add(dummy.get(i));
-                    flag[dummy.get(i)] = true;
+            for(int i:adj.get(ele)){
+                if(!vis[i]){
+                    q.add(i);
+                    vis[i] = true;
                 }
             }
         }
-        
-        return ans;
+        return res;
     }
 }
