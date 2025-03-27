@@ -45,16 +45,19 @@ class Solution {
     // railway station such that no train waits.
     static int findPlatform(int arr[], int dep[]) {
         // add your code here
-        int ans = 0;
-        int[] res = new int[2401];
-        for(int i = 0; i < arr.length; i++){
-            for(int j = arr[i]; j <= dep[i]; j++){
-                res[j]++;
-            }
-        }
+        Arrays.sort(arr);
+        Arrays.sort(dep);
         
-        for(int i = 1;i <= 2400; i++){
-            ans = Math.max(ans,res[i]);
+        Queue<Integer> q = new LinkedList<>();
+        
+        int ans = 0;
+        
+        for(int i = 0; i < arr.length; i++){
+            q.add(dep[i]);
+            while (arr[i] > q.peek()){ 
+                q.remove();
+            }
+            ans = Math.max(ans,q.size());
         }
         
         return ans;
